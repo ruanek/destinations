@@ -26,30 +26,42 @@
       </div>
     </div>
     <div class="container">
-      <input
-        class="form-control"
-        type="text"
-        placeholder="Enter the name of the destination"
-        aria-label="default input example"
-      />
-      <input
-        class="form-control"
-        type="text"
-        placeholder="Where is it Located"
-        aria-label="default input example"
-      />
-      <input
-        class="form-control"
-        type="text"
-        placeholder="Enter an image url of the destination"
-        aria-label="default input example"
-      />
-      <input
-        class="form-control"
-        type="text"
-        placeholder="Enter a description here"
-        aria-label="default input example"
-      />
+      <div class="mb-3">
+        <label for="name" class="form-label">Destination Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Enter the name of the destination"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input
+          type="text"
+          class="form-control"
+          id="location"
+          placeholder="Another input placeholder"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="photo" class="form-label">Photo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="photo"
+          placeholder="Enter an image url of the destination"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          placeholder="Enter a short description here"
+        />
+      </div>
     </div>
     <!-- JS Link -->
     <script src="./script.js"></script>
