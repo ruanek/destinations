@@ -61,6 +61,7 @@ function newCard(name, location, photo, description){
      const editButton = document.createElement("button")
      editButton.setAttribute("class", "btn btn-warning")
      editButton.innerText = "Edit"
+     editButton.addEventListener("click", editForm)
      buttons.appendChild(editButton)
      //remove button <button type="button" class="btn btn-danger">Danger</button>
      const removeButton = document.createElement("button")
@@ -73,3 +74,32 @@ function newCard(name, location, photo, description){
      card.appendChild(body)
      return card
  }
+
+ function editForm(evt) {
+    //access the form
+    const body = evt.target.parentElement.parentElement
+    //access each input area
+    const destName = body.children[0]
+    const destLocation = body.children[1]
+    const destPhoto = body.children[2]
+    const destDesc = body.children[3]
+    //pop-up for new input
+    const newName = alert("Change Destination Name?")
+    const newLocation = alert("Change Location?")
+    const newPhoto = alert("Change Photo?")
+    const newDesc = alert("Chang Description?")
+    //if input is entered overwrite the old text
+    if (newName.length > 0) {
+        destName.innerText = newName
+    }
+    if (newLocation.length > 0) {
+        destLocation.innerText = newLocation
+    }
+    if (newPhoto.length > 0) {
+        destPhoto.innerText = newPhoto
+    }
+    if (newDesc.length > 0) {
+        destDesc.innerText = newDesc
+      }
+}
+ 
