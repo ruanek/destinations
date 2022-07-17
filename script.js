@@ -61,12 +61,15 @@ function newCard(name, location, photo, description){
      const editButton = document.createElement("button")
      editButton.setAttribute("class", "btn btn-warning")
      editButton.innerText = "Edit"
+     // add listener for edit form
      editButton.addEventListener("click", editForm)
      buttons.appendChild(editButton)
      //remove button <button type="button" class="btn btn-danger">Danger</button>
      const removeButton = document.createElement("button")
      removeButton.setAttribute("class", "btn btn-danger")
      removeButton.innerText = "Remove"
+     //add listner for remove card
+     removeButton.addEventListener("click", deleteCard)
      buttons.appendChild(removeButton)
      //add buttons to body
      body.appendChild(buttons)
@@ -74,7 +77,6 @@ function newCard(name, location, photo, description){
      card.appendChild(body)
      return card
  }
-
  function editForm(evt) {
     //access the form
     const body = evt.target.parentElement.parentElement
@@ -103,5 +105,12 @@ function newCard(name, location, photo, description){
     if (newDesc.length > 0) {
         destDesc.innerText = newDesc
       }
+}
+
+function deleteCard(evt) {
+    //access the card to be deleted
+    const card = evt.target.parentElement.parentElement.parentElement
+    //use .remove() to delete card
+    card.remove()
 }
  
