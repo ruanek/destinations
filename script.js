@@ -10,6 +10,11 @@ function addClicked(evt) {
     const createCard = newCard(inputName, inputLocation, inputPhoto, inputDescription)
   
     document.getElementById("dest_card_container").appendChild(createCard)
+
+    const reset = evt.target
+    for (let i = 0; i < reset.length; i++) {
+        reset.elements[i].value = ""        
+    }
 }
 
 function newCard(name, location, photo, description){
@@ -49,7 +54,22 @@ function newCard(name, location, photo, description){
      setDescription.innerText = description
        // add description to body div
      body.appendChild(setDescription)
-     
+     //buttons
+     //div to contain edit and remove
+     const buttons = document.createElement("div")
+     //edit button <button type="button" class="btn btn-warning">Warning</button>
+     const editButton = document.createElement("button")
+     editButton.setAttribute("class", "btn btn-warning")
+     editButton.innerText = "Edit"
+     buttons.appendChild(editButton)
+     //remove button <button type="button" class="btn btn-danger">Danger</button>
+     const removeButton = document.createElement("button")
+     removeButton.setAttribute("class", "btn btn-danger")
+     removeButton.innerText = "Remove"
+     buttons.appendChild(removeButton)
+     //add buttons to body
+     body.appendChild(buttons)
+     //add body to card
      card.appendChild(body)
      return card
  }
