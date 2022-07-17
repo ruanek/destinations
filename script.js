@@ -1,22 +1,25 @@
+// Listener for submit of form
 document.querySelector(".input_form").addEventListener("submit", addClicked)
-
+// function to deal with form submission
 function addClicked(evt) {
+    // .preventDefault used to keep the browser from refreshing the form
     evt.preventDefault();
+    //accessing input information
     const inputName = evt.target.elements["name"].value
     const inputLocation = evt.target.elements["location"].value
     const inputPhoto= evt.target.elements["photo"].value
     const inputDescription = evt.target.elements["description"].value
-
+    // Card creation
     const createCard = newCard(inputName, inputLocation, inputPhoto, inputDescription)
-  
+    // Add new card
     document.getElementById("dest_card_container").appendChild(createCard)
-
+    // Reset form for new submission
     const reset = evt.target
     for (let i = 0; i < reset.length; i++) {
         reset.elements[i].value = ""        
     }
 }
-
+// Populate the card
 function newCard(name, location, photo, description){
     //creating <div class="card" style="width: 18rem;">
      const card = document.createElement("div")
@@ -77,6 +80,7 @@ function newCard(name, location, photo, description){
      card.appendChild(body)
      return card
  }
+//  edit the card
  function editForm(evt) {
     //access the form
     const body = evt.target.parentElement.parentElement
@@ -106,7 +110,7 @@ function newCard(name, location, photo, description){
         destDesc.innerText = newDesc
       }
 }
-
+// remove the card
 function deleteCard(evt) {
     //access the card to be deleted
     const card = evt.target.parentElement.parentElement.parentElement

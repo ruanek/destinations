@@ -1,13 +1,14 @@
+/* Giving the title/header some margin for spacing */
 .container-fluid {
     margin-bottom: 2rem;
 }
-
+/* Making the card container a flexbox */
 .dest_card_container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
-
+/* Giving the input fields more space between them */
 .input_fields {
     margin-bottom: 1rem;
 }
