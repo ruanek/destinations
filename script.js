@@ -81,13 +81,15 @@ function newCard(name, location, photo, description){
     //access each input area
     const destName = body.children[0]
     const destLocation = body.children[1]
-    const destPhoto = body.children[2]
-    const destDesc = body.children[3]
+    const destDesc = body.children[2]
+    //new photo needed to access the card to edit the photo
+    const editCard = body.parentElement
+    const destPhoto = editCard.children[0]
     //pop-up for new input
-    const newName = alert("Change Destination Name?")
-    const newLocation = alert("Change Location?")
-    const newPhoto = alert("Change Photo?")
-    const newDesc = alert("Chang Description?")
+    const newName = prompt("Change Destination Name?")
+    const newLocation = prompt("Change Location?")
+    const newPhoto = prompt("Change Photo?")
+    const newDesc = prompt("Chang Description?")
     //if input is entered overwrite the old text
     if (newName.length > 0) {
         destName.innerText = newName
@@ -96,7 +98,7 @@ function newCard(name, location, photo, description){
         destLocation.innerText = newLocation
     }
     if (newPhoto.length > 0) {
-        destPhoto.innerText = newPhoto
+        destPhoto.setAttribute("src", newPhoto)
     }
     if (newDesc.length > 0) {
         destDesc.innerText = newDesc
