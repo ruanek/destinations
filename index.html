@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <!-- Title/fixed header created with https://getbootstrap.com/docs/5.2/layout/containers/ -->
     <div class="container-fluid bg-light">
       <div class="container p-5 text-center">
         <h1 class="display-4">Vacation Destinations WishList</h1>
@@ -26,11 +27,12 @@
         </p>
       </div>
     </div>
-
+    <!-- Container for form done using https://getbootstrap.com/docs/5.2/layout/grid/ -->
     <div class="container">
       <div class="row">
         <div class="col-md-3">
           <form class="input_form">
+            <!-- Dest Name Field -->
             <div class="input_fields">
                 <label for="name" class="form-label">Destination Name</label>
                 <input
@@ -41,6 +43,7 @@
                   placeholder="Enter the name of the destination"
                 />
             </div>
+            <!-- Dest Location Field -->        
             <div class="input_fields">
                 <label for="location" class="form-label">Location</label>
                 <input
@@ -51,6 +54,7 @@
                   placeholder="Another input placeholder"
                 />
             </div>
+            <!-- Dest Photo Field -->
             <div class="input_fields">
                 <label for="photo" class="form-label">Photo</label>
                 <input
@@ -60,8 +64,10 @@
                   placeholder="Enter an image url of the destination"
                 />
             </div>
+            <!-- Dest Description Field -->
             <div class="input_fields">
               <label for="description" class="form-label">Description</label>
+              <!-- Used Textarea for an expandable input box -->
               <textarea
                 type="text"
                 class="form-control"
@@ -69,11 +75,13 @@
                 placeholder="Enter a short description here"
               /></textarea>
             </div>
+            <!-- Submit Button -->
             <button type="submit" class="btn btn-primary">
               Add to Wishlist
             </button>
           </form>
         </div>
+        <!-- Container for dest cards done using https://getbootstrap.com/docs/5.2/layout/grid/ -->
         <div class="col-md-9">
           <h4 id="title">Enter destination details</h4>
           <div id="dest_card_container">
