@@ -1,0 +1,13 @@
+.container-fluid {
+    margin-bottom: 2rem;
+}
+
+.dest_card_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.input_fields {
+    margin-bottom: 1rem;
+}
