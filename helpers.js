@@ -8,7 +8,7 @@ export function addClicked(evt) {
     const inputPhoto= evt.target.elements["photo"].value
     const inputDescription = evt.target.elements["description"].value
     // Card creation
-    const createCard = newCard(inputName, inputLocation, inputPhoto, inputDescription)
+    const createCard = newCard({inputName, inputLocation, inputPhoto, inputDescription})
     document.getElementById("title").innerText = "My Wishlist"
     // Add new card
     document.getElementById("dest_card_container").appendChild(createCard)
@@ -19,7 +19,7 @@ export function addClicked(evt) {
     }
 }
 // Populate the card
-function newCard(name, location, photo, description){
+function newCard({inputName, inputLocation, inputPhoto, inputDescription}){
     //creating <div class="card" style="width: 18rem;">
      const card = document.createElement("div")
      card.setAttribute("class", "card")
@@ -28,10 +28,10 @@ function newCard(name, location, photo, description){
      const image = document.createElement('img')
      image.setAttribute("class", "card-img-top")
      //check if url was entered and use stock img or url entered
-     if (photo.length === 0) {
+     if (inputPhoto.length === 0) {
          image.setAttribute("src","https://assets-au-01.kc-usercontent.com/8eab38bf-c951-027f-23de-36c6b71701df/de956333-7f59-4bc5-be19-927c7c37cbcc/article-travel-destinations-world-travel.jpg")
      }else {
-         image.setAttribute("src", photo)
+         image.setAttribute("src", inputPhoto)
      }
      // add stock img or input photo to div
      card.appendChild(image)
@@ -41,19 +41,19 @@ function newCard(name, location, photo, description){
      //creating <h5 class="card-title">Card title</h5>
      const setName = document.createElement("h5")
      setName.setAttribute("class", "card-title")
-     setName.innerText = name
+     setName.innerText = inputName
      // add name to body div
      body.appendChild(setName)
      //creating <h5 class="card-title">Card title</h5>
      const setLocation = document.createElement("h5")
      setLocation.setAttribute("class", "card-title")
-     setLocation.innerText = location
+     setLocation.innerText = inputLocation
      // add location to body div
      body.appendChild(setLocation)
      // creating <p class="card-text">
      const setDescription = document.createElement("p")
      setDescription.setAttribute("class", "card-text")
-     setDescription.innerText = description
+     setDescription.innerText = inputDescription
        // add description to body div
      body.appendChild(setDescription)
      //buttons
