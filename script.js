@@ -11,6 +11,7 @@ function addClicked(evt) {
     const inputDescription = evt.target.elements["description"].value
     // Card creation
     const createCard = newCard(inputName, inputLocation, inputPhoto, inputDescription)
+    document.getElementById("title").innerText = "My Wishlist"
     // Add new card
     document.getElementById("dest_card_container").appendChild(createCard)
     // Reset form for new submission
@@ -116,5 +117,6 @@ function deleteCard(evt) {
     const card = evt.target.parentElement.parentElement.parentElement
     //use .remove() to delete card
     card.remove()
+    document.getElementById("title").innerText = "Enter destination details"
 }
  
