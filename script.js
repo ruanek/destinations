@@ -1,7 +1,7 @@
-import {addClicked} from "./helpers.js"
+import {handleFormSubmit} from "./helpers.js"
 
 // Listener for submit of form
-document.querySelector(".input_form").addEventListener("submit", addClicked)
+document.querySelector(".input_form").addEventListener("submit", handleFormSubmit)
 
 
  

@@ -1,119 +1,153 @@
-// function to deal with form submission
-export function addClicked(evt) {
-    // .preventDefault used to keep the browser from refreshing the form
-    evt.preventDefault();
-    //accessing input information
-    const inputName = evt.target.elements["name"].value
-    const inputLocation = evt.target.elements["location"].value
-    const inputPhoto= evt.target.elements["photo"].value
-    const inputDescription = evt.target.elements["description"].value
-    // Card creation
-    const createCard = newCard({inputName, inputLocation, inputPhoto, inputDescription})
-    document.getElementById("title").innerText = "My Wishlist"
-    // Add new card
-    document.getElementById("dest_card_container").appendChild(createCard)
-    // Reset form for new submission
-    const reset = evt.target
-    for (let i = 0; i < reset.length; i++) {
-        reset.elements[i].value = ""        
+export async function handleFormSubmit(evtObj) {
+    // Prevents form from automatically submit our info and gives us time to process input our way
+    evtObj.preventDefault();
+  
+    // TODO - Grab user input on form submit
+    let destName = document.getElementById("name").value;
+    let locName = document.getElementById("location").value;
+  
+    // let photoUrl = document.getElementById("photo_url").value;
+    // Get the photo from Unsplash API
+    let photoUrl = await getUnsplashPhoto({ destName, locName });
+  
+    let descr = document.getElementById("description").value;
+  
+    //   TODO Use user input to create a card
+    createCard({ destName, locName, photoUrl, descr });
+  
+    // Reset form input fields back to nothing
+    evtObj.target.reset();
+  }
+  
+  async function getUnsplashPhoto({ destName, locName }) {
+    // Use destName and locName as query parameters to get a photo related to them from the Unsplash API
+    const URL = `https://api.unsplash.com/search/photos?client_id=zPyO6m0ezgkOS-Tc0Co64-y6MqTXCULFL-TcXfxBrLc&query=${destName} ${locName}`;
+  
+    // TODO Use the URL to fetch photos from Unsplash and log those photos
+    // fetch(URL)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     const allPhotos = data.results;
+    //     const randIdx = Math.floor(Math.random() * allPhotos.length);
+    //     const randPhoto = allPhotos[randIdx];
+    //     return randPhoto;
+    //   });
+  
+    const response = await fetch(URL);
+    const data = await response.json();
+  
+    const allPhotos = data.results;
+    const randIdx = Math.floor(Math.random() * allPhotos.length);
+    const randPhoto = allPhotos[randIdx];
+  
+    if (randPhoto === undefined) {
+      return "https://images.pexels.com/photos/3155666/pexels-photo-3155666.jpeg?cs=srgb&dl=pexels-asad-photo-maldives-3155666.jpg&fm=jpg";
     }
-}
-// Populate the card
-function newCard({inputName, inputLocation, inputPhoto, inputDescription}){
-    //creating <div class="card" style="width: 18rem;">
-     const card = document.createElement("div")
-     card.setAttribute("class", "card")
-     card.style.width = "18rem"
-     // creating  <img src="..." class="card-img-top" alt="...">
-     const image = document.createElement('img')
-     image.setAttribute("class", "card-img-top")
-     //check if url was entered and use stock img or url entered
-     if (inputPhoto.length === 0) {
-         image.setAttribute("src","https://assets-au-01.kc-usercontent.com/8eab38bf-c951-027f-23de-36c6b71701df/de956333-7f59-4bc5-be19-927c7c37cbcc/article-travel-destinations-world-travel.jpg")
-     }else {
-         image.setAttribute("src", inputPhoto)
-     }
-     // add stock img or input photo to div
-     card.appendChild(image)
-     // creating  <div class="card-body">
-     const body = document.createElement("div")
-     body.setAttribute("class", "card-body")
-     //creating <h5 class="card-title">Card title</h5>
-     const setName = document.createElement("h5")
-     setName.setAttribute("class", "card-title")
-     setName.innerText = inputName
-     // add name to body div
-     body.appendChild(setName)
-     //creating <h5 class="card-title">Card title</h5>
-     const setLocation = document.createElement("h5")
-     setLocation.setAttribute("class", "card-title")
-     setLocation.innerText = inputLocation
-     // add location to body div
-     body.appendChild(setLocation)
-     // creating <p class="card-text">
-     const setDescription = document.createElement("p")
-     setDescription.setAttribute("class", "card-text")
-     setDescription.innerText = inputDescription
-       // add description to body div
-     body.appendChild(setDescription)
-     //buttons
-     //div to contain edit and remove
-     const buttons = document.createElement("div")
-     //edit button <button type="button" class="btn btn-warning">Warning</button>
-     const editButton = document.createElement("button")
-     editButton.setAttribute("class", "btn btn-warning")
-     editButton.innerText = "Edit"
-     // add listener for edit form
-     editButton.addEventListener("click", editForm)
-     buttons.appendChild(editButton)
-     //remove button <button type="button" class="btn btn-danger">Danger</button>
-     const removeButton = document.createElement("button")
-     removeButton.setAttribute("class", "btn btn-danger")
-     removeButton.innerText = "Remove"
-     //add listner for remove card
-     removeButton.addEventListener("click", deleteCard)
-     buttons.appendChild(removeButton)
-     //add buttons to body
-     body.appendChild(buttons)
-     //add body to card
-     card.appendChild(body)
-     return card
- }
-//  edit the card
- function editForm(evt) {
-    //access the form
-    const body = evt.target.parentElement.parentElement
-    //access each input area
-    const destName = body.children[0]
-    const destLocation = body.children[1]
-    const destDesc = body.children[2]
-    //new photo needed to access the card to edit the photo
-    const editCard = body.parentElement
-    const destPhoto = editCard.children[0]
-    //pop-up for new input
-    const newName = prompt("Change Destination Name?")
-    const newLocation = prompt("Change Location?")
-    const newPhoto = prompt("Change Photo?")
-    const newDesc = prompt("Chang Description?")
-    //if input is entered overwrite the old text
-    if (newName.length > 0) {
-        destName.innerText = newName
+  
+    return randPhoto.urls.thumb;
+  }
+  
+  function createCard({ destName, locName, photoUrl, descr }) {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.style.width = "18rem";
+  
+    card.innerHTML = `
+      <img src=${photoUrl} class="card-img-top" alt=${destName} at ${locName}>
+      <div class="card-body">
+          <h5 class="card-title">${destName}</h5>
+          <p class="card-text">${locName}</p>
+          <p class="card-text">${descr}</p>
+          <div class="action_btns">
+      
+          </div>
+      </div>
+      `;
+  
+    // TODO Append card to cards container div
+    document.getElementById("dest_card_container").appendChild(card);
+  
+    
+    const editBtn = document.createElement("button");
+    editBtn.setAttribute("class", "btn btn-warning")
+    editBtn.innerText = "Edit";
+    editBtn.addEventListener("click", handleEdit);
+  
+    const deleteBtn = document.createElement("button");
+    deleteBtn.setAttribute("class", "btn btn-danger")
+    deleteBtn.innerText = "Remove";
+    deleteBtn.addEventListener("click", handleRemove);
+  
+    const numsOfCards = document.querySelectorAll(".action_btns").length;
+  
+    document
+      .querySelectorAll(".action_btns")
+      [numsOfCards - 1].appendChild(editBtn);
+    document
+      .querySelectorAll(".action_btns")
+      [numsOfCards - 1].appendChild(deleteBtn);
+  }
+  
+  function handleEdit(evt) {
+    const editBtn = evt.target;
+    const cardBody = editBtn.parentElement.parentElement;
+    const [destElt, locElt, descElt] = cardBody.children;
+  
+    const imgElt = cardBody.parentElement.children[0];
+  
+    const { newDesc, newDest, newLoc } = getUserInfo();
+    updateUserInfo({
+      eltsToUpdate: { destElt, locElt, descElt, imgElt },
+      newInfo: { newDesc, newDest, newLoc },
+    });
+  }
+  
+  async function updateUserInfo({
+    eltsToUpdate: { destElt, locElt, descElt, imgElt },
+    newInfo: { newDesc, newDest, newLoc },
+  }) {
+    if (newDest) {
+      destElt.innerText = newDest;
     }
-    if (newLocation.length > 0) {
-        destLocation.innerText = newLocation
+  
+    if (newLoc) {
+      locElt.innerText = newLoc;
     }
-    if (newPhoto.length > 0) {
-        destPhoto.setAttribute("src", newPhoto)
+  
+    // if (newImgUrl) {
+    //   imgElt.setAttribute("src", newImgUrl);
+    // }
+  
+    // Check if either destination and/or location was updated to go get a new photo
+    if (newDest || newLoc) {
+      const newImgUrl = await getUnsplashPhoto({
+        destName: destElt.innerText,
+        locName: locElt.innerText,
+      });
+      imgElt.setAttribute("src", newImgUrl);
     }
-    if (newDesc.length > 0) {
-        destDesc.innerText = newDesc
-      }
-}
-// remove the card
-function deleteCard(evt) {
-    //access the card to be deleted
-    const card = evt.target.parentElement.parentElement.parentElement
-    //use .remove() to delete card
-    card.remove()
-    document.getElementById("title").innerText = "Enter destination details"
-}
+  
+    if (newDesc) {
+      descElt.innerText = newDesc;
+    }
+  }
+  
+  function getUserInfo() {
+    const newDest = prompt("Enter new destination");
+    const newLoc = prompt("Enter new location");
+    const newDesc = prompt("Enter new description");
+    // const newImgUrl = prompt("Enter new image url");
+  
+    return {
+      newDesc,
+      newLoc,
+      // newImgUrl,
+      newDest,
+    };
+  }
+  
+  function handleRemove(evt) {
+    const removeBtn = evt.target;
+    const card = removeBtn.parentElement.parentElement.parentElement;
+    card.remove();
+  }
